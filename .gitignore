@@ -1,0 +1,35 @@
+﻿# Python
+__pycache__/
+*.pyc
+
+# venv / tools
+.venv/
+.env/
+.env.*
+
+# OS/IDE
+.DS_Store
+*.code-workspace
+.vscode/
+
+# Data (raw/external)
+data/raw/
+data/interim/
+data/processed/
+
+# Large artifacts
+artifacts/**/*.npz
+artifacts/**/*.pkl
+artifacts/**/*.pt
+artifacts/**/*.pth
+artifacts/**/*.parquet
+artifacts/**/*.feather
+artifacts/**/*.csv
+
+# Deployment bundles
+**/model.tar.gz
+**/*.zip
+**/*.gz
+
+# Caches
+**/.ipynb_checkpoints
