@@ -224,6 +224,12 @@ If you want to know more about the project, message me at my [Linkedin: Gabriel 
 * **Cloud**: SageMaker endpoint (model_fn/transform_fn), AWS Lambda + Layer (small, fast, cheap).
 * **Engineering**: Clean artifacts, reproducible training (optional), production-grade packaging.
 
+
+
+
+## Artifacts (hosted on S3)
+These files let you deploy the endpoint and run the Lambda re-ranker without retraining.
+
 | Artifact                    | Purpose                                                |     Size | Link                                                                                                                                                                                                           |
 | --------------------------- | ------------------------------------------------------ | -------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `model.pth`                 | Two-Tower PyTorch weights (inference)                  |  21.0 MB | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/model.pth](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/model.pth)                                 |
@@ -235,3 +241,19 @@ If you want to know more about the project, message me at my [Linkedin: Gabriel 
 | `link.csv`                  | TMDB → MovieLens map                                   | 526.7 KB | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/link.csv](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/link.csv)                                   |
 | `sweep_quick.final.csv`     | Final sweep params (quick)                             |    595 B | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/sweep_quick.final.csv](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/sweep_quick.final.csv)         |
 | `sweep_medium.final.csv`    | Final sweep params (medium)                            |  31.9 KB | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/sweep_medium.final.csv](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/sweep_medium.final.csv)       |
+
+<details> 
+<summary><strong>Large files (raw/auxiliary)</strong> — included for completeness; not required to run the demo</summary>
+
+| Artifact                | Purpose                            |     Size | Link                                                                                                                                                                                                   |
+| ----------------------- | ---------------------------------- | -------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `genome_tags.csv`       | Tag names for Tag Genome           |  19.9 KB | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/genome_tags.csv](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/genome_tags.csv)             |
+| `tag.csv`               | User tag events                    |  20.7 MB | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/tag.csv](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/tag.csv)                             |
+| `genome_scores.csv`     | Tag Genome relevance matrix        | 204.4 MB | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/genome_scores.csv](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/genome_scores.csv)         |
+| `movie_features_df.pkl` | Pre-joined content features (wide) | 240.3 MB | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/movie_features_df.pkl](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/movie_features_df.pkl) |
+| `rating.csv`            | MovieLens ratings                  | 658.4 MB | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/rating.csv](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/rating.csv)                       |
+| `sweep_quick.csv`       | Sweep log (quick)                  |    595 B | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/sweep_quick.csv](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/sweep_quick.csv)             |
+| `sweep_medium.csv`      | Sweep log (medium)                 |  31.9 KB | [https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/sweep_medium.csv](https://github-absolute-cinema-recommender-files.s3.us-east-2.amazonaws.com/sweep_medium.csv)           |
+
+
+</details>
