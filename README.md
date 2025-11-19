@@ -8,6 +8,44 @@
 
 > You can run this repo **without retraining** using the prebuilt artifacts already included.
 
+
+```mermaid
+graph TD
+    %% Definição dos Nós
+    subgraph "Frontend & Client"
+        User([👤 User])
+        UI[💻 Web App / Chatbot]
+    end
+
+    subgraph "Serverless Layer (AWS)"
+        API[⚡ API Gateway]
+        Lambda[λ Lambda Re-ranker]
+        Layer[📦 Lambda Layer\n(SVD Factors + CSVs)]
+    end
+
+    subgraph "Deep Learning Inference"
+        Sage[🧠 SageMaker Endpoint\n(Two-Tower Model)]
+        S3[(S3 Artifacts)]
+    end
+
+    %% Definição do Fluxo
+    User -->|Interaction| UI
+    UI -->|1. Send Preferences| API
+    API -->|2. Trigger| Lambda
+    Lambda -.->|Load Light Data| Layer
+    Lambda -->|3. Retrieve Candidates| Sage
+    Sage -.->|Load Weights| S3
+    Sage -->|4. Return Top-200| Lambda
+    Lambda -->|5. Re-rank (SVD + MMR)| Lambda
+    Lambda -->|6. JSON Response| API
+    API -->|7. Render Recs| UI
+
+    %% Estilização (Opcional - deixa mais bonito)
+    style Lambda fill:#f9f,stroke:#333,stroke-width:2px
+    style Sage fill:#bbf,stroke:#333,stroke-width:2px
+```
+
+
 ## Why serverless (Lambda) for the final hop?
 Serverless gives us low idle cost, elastic concurrency, and a simple way to compose retrieval (SageMaker) + re-rank (SVD/MMR). The re-ranker is light (pure NumPy + small CSV/NPZ), so keeping it in Lambda reduces endpoint count and simplifies deployments.
 
@@ -16,6 +54,7 @@ What I optimized for
 * **P95/P99 latency**: avoided library cold starts by shipping only numpy/pandas in the layer data (CSV/NPZ) and not in the function ZIP; the function code is small.
 * **Cold start mitigation**: I keep the Lambda ZIP tiny and ship data files in a Layer (python/ path) so cold starts avoid heavy wheels. On init, Lambda loads svd_runtime_data.npz, builds Q_NORM, and caches movie_index. SageMaker containers precompute item vectors once per container start in model_fn, so per-request work is only a user-profile average + cosine scan.
 
+  
 ## Production considerations
 **Latency & cost**
 * Retrieval is offloaded to SageMaker (GPU/CPU as needed), while the Lambda execution time is short (re-rank + formatting).
