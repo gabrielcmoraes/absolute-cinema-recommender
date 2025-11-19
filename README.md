@@ -28,17 +28,17 @@ graph TD
         S3[("S3 Artifacts")]
     end
 
-    %% Definição do Fluxo
-    User -->|Interaction| UI
-    UI -->|1. Send Preferences| API
-    API -->|2. Trigger| Lambda
-    Lambda -.->|Load Light Data| Layer
-    Lambda -->|3. Retrieve Candidates| Sage
-    Sage -.->|Load Weights| S3
-    Sage -->|4. Return Top-200| Lambda
-    Lambda -->|5. Re-rank (SVD + MMR)| Lambda
-    Lambda -->|6. JSON Response| API
-    API -->|7. Render Recs| UI
+    %% Definição do Fluxo - USANDO ASPAS PARA PROTEGER O TEXTO
+    User -- "Interaction" --> UI
+    UI -- "1. Send Preferences" --> API
+    API -- "2. Trigger" --> Lambda
+    Lambda -. "Load Light Data" .-> Layer
+    Lambda -- "3. Retrieve Candidates" --> Sage
+    Sage -. "Load Weights" .-> S3
+    Sage -- "4. Return Top-200" --> Lambda
+    Lambda -- "5. Re-rank (SVD + MMR)" --> Lambda
+    Lambda -- "6. JSON Response" --> API
+    API -- "7. Render Recs" --> UI
 
     %% Estilização
     style Lambda fill:#f9f,stroke:#333,stroke-width:2px
