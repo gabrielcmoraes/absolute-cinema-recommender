@@ -13,19 +13,19 @@
 graph TD
     %% Definição dos Nós
     subgraph "Frontend & Client"
-        User([👤 User])
-        UI[💻 Web App / Chatbot]
+        User(["👤 User"])
+        UI["💻 Web App / Chatbot"]
     end
 
     subgraph "Serverless Layer (AWS)"
-        API[⚡ API Gateway]
-        Lambda[λ Lambda Re-ranker]
-        Layer[📦 Lambda Layer\n(SVD Factors + CSVs)]
+        API["⚡ API Gateway"]
+        Lambda["λ Lambda Re-ranker"]
+        Layer["📦 Lambda Layer\n(SVD Factors + CSVs)"]
     end
 
     subgraph "Deep Learning Inference"
-        Sage[🧠 SageMaker Endpoint\n(Two-Tower Model)]
-        S3[(S3 Artifacts)]
+        Sage["🧠 SageMaker Endpoint\n(Two-Tower Model)"]
+        S3[("S3 Artifacts")]
     end
 
     %% Definição do Fluxo
@@ -40,7 +40,7 @@ graph TD
     Lambda -->|6. JSON Response| API
     API -->|7. Render Recs| UI
 
-    %% Estilização (Opcional - deixa mais bonito)
+    %% Estilização
     style Lambda fill:#f9f,stroke:#333,stroke-width:2px
     style Sage fill:#bbf,stroke:#333,stroke-width:2px
 ```
