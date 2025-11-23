@@ -196,6 +196,16 @@ MMR_PARAMS = {
 }
 ```
 
+## The "Movie Concierge" Chatbot (Architecture)
+To handle natural language queries ("I want a thriller without gore"), I implemented a secondary pipeline using **Generative AI** rather than vector search.
+
+* **Model:** Anthropic Claude 3 Haiku (via AWS Bedrock) for low-latency reasoning.
+* **Flow:**
+    1.  **Intent Detection:** Regex-based router detects if the user wants recommendations or specific movie details (saving LLM tokens).
+    2.  **Generation:** The LLM suggests titles based on the user's "vibe."
+    3.  **Grounding (The "RAG-lite" Step):** The Lambda parses the LLM's output for movie titles, calls the **TMDB API** in real-time to fetch streaming providers and ratings, and injects this data back into the final response.
+* **Why separate?** The Two-Tower model excels at "Item-to-Item" similarity, while the LLM excels at "Abstract-to-Item" reasoning.
+
 ## Optional — (Re)training locally
 You do not need this for deployment. For full reproducibility:
 ```powershell
